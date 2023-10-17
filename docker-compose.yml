@@ -1,0 +1,15 @@
+version: ‘3’
+
+services:
+  app:
+    image: my_flask_webpage:latest
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./key.pem:/home/source/ssl/key.pem
+      - ./cert.pem:/home/source/ssl/cert.pem
+    ports:
+      - "443:443"
+    depends_on:
+      - app
